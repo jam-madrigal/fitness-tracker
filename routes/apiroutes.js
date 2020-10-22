@@ -21,7 +21,7 @@ const Resistance = require('../models/resistance.js')
       // Below code handles when a user submits a form and thus submits data to the server.
     
       app.put("/api/workouts/:id", function(req, res) {
-          console.log(req);
+          console.log(req.body);
           res.json();
       });
 
