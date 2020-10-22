@@ -2,6 +2,12 @@ module.exports = function(app) {
     // API GET Requests
     // Below code handles when users "visit" a page.
     // In each of the below cases when a user visits a link
+
+// Importing models needed to updated exercises
+const Cardio = require('../models/cardio.js')
+const Resistance = require('../models/resistance.js')
+
+
   
     app.get("/api/workouts", function(req, res) {
         res.json();
