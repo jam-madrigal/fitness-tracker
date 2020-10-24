@@ -21,7 +21,13 @@ const Workout = require('../models/workout.js')
 
     // Get all the workouts from the db
       app.get("/api/workouts/range", function(req, res) {
-        res.json();
+        Workout.find({})
+        .then(dbWorkouts => {
+          res.json(dbWorkouts);
+        })
+        .catch(err => {
+          res.status(400).json(err);
+        });
       });
     
       // API POST Requests
