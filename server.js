@@ -24,6 +24,12 @@ mongoose.connect(
     }
 );
 
+// Checking success of the connection to mongodb
+const connectionSuccess = mongoose.connection
+connectionSuccess.once('open', _ => {
+  console.log('Database connected:', 'mongodb://localhost/fitness-tracker')
+})
+
 
 
 // ================================================================================
