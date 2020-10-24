@@ -1,8 +1,8 @@
-# Fitness-Tracker
+# Fitness Tracker
 
 
 ![License: CC BY-NC-ND 4.0](https://licensebuttons.net/l/by-nc-nd/4.0/80x15.png)
-# Eat da burger
+## What does the application say about your power level?
 ---
 
 # Table of contents
