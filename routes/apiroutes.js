@@ -35,8 +35,13 @@ const Workout = require('../models/workout.js')
     // Create a new workout
       app.post("/api/workouts", ({body}, res) => {
 // Add a Workout.create() method that creates a new workout, taking in the body of the request as keys/values
-        console.log(body);
-        res.json();
+          Workout.create(body)
+            .then(dbWorkouts => {
+              res.json(dbWorkouts);
+            })
+            .catch(err => {
+              res.status(400).json(err);
+            })
       });
 
     // API PUT requests to update add a new exercise to a workout in the db
