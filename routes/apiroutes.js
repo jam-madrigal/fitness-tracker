@@ -1,13 +1,12 @@
 module.exports = function(app) {
-    // API GET Requests
-    // Below code handles when users "visit" a page.
-    // In each of the below cases when a user visits a link
 
 // Importing models needed to update exercises
 const Workout = require('../models/workout.js')
 
-
-    // Retrieve the last workout
+    // API GET Requests
+    // Below code handles when users "visit" a page.
+    // In each of the below cases when a user visits a link
+    // Retrieve the last workout by fetching them all in descending order; frontend renders based on order
     app.get("/api/workouts", (req, res) => {
       Workout.find({})
         .sort({ date: -1 })
@@ -19,7 +18,7 @@ const Workout = require('../models/workout.js')
         });
       });
 
-    // Get all the workouts from the db
+    // Get all the workouts from the db, unsorted, for the /stats page
       app.get("/api/workouts/range", function(req, res) {
         Workout.find({})
         .then(dbWorkouts => {
@@ -34,15 +33,24 @@ const Workout = require('../models/workout.js')
       // Below code handles when a user submits a form and thus submits data to the server.
 
     // Create a new workout
-      app.post("/api/workouts", function(req, res) {
-// Add conditions here based on req.body.type, then Cardio.create() or Resistance.create()
-        console.log(req.body);
+      app.post("/api/workouts", function({body}, res) {
+// Add a Workout.create() method that creates a new workout, taking in the body of the request as keys/values
+        console.log(body);
         res.json();
       });
 
     // API PUT requests to update add a new exercise to a workout in the db
-      app.put("/api/workouts/:id", function(req, res) {
-          res.json();
+      app.put("/api/workouts/:id", function({body, params}, res) {
+        // Grab the ID of the previous workout, then add code to add to that database entry based on the id
+
+        Workout.findOneAndUpdate({_id: params.id}, { $push: { exercises: body } }, {runValidators: true})
+        .then(dbWorkouts => {
+          res.json(dbWorkouts);
+        })
+        .catch(err => {
+          res.json(err);
+        });
       });
 
   };
+
