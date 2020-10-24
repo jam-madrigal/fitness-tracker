@@ -8,8 +8,15 @@ const Workout = require('../models/workout.js')
 
 
     // Retrieve the last workout
-    app.get("/api/workouts", function(req, res) {
-        res.json();
+    app.get("/api/workouts", (req, res) => {
+      Workout.find({})
+        .sort({ date: -1 })
+        .then(dbWorkouts => {
+          res.json(dbWorkouts);
+        })
+        .catch(err => {
+          res.status(400).json(err);
+        });
       });
 
     // Get all the workouts from the db
